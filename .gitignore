@@ -156,3 +156,6 @@ flakiness-report/
 
 # Claude Code personal settings
 .claude/settings.local.json
+
+# Playwright MCP snapshots/console logs
+.playwright-mcp/
