@@ -153,3 +153,6 @@ trace.zip
 report.html
 flakiness-report/
 .ruff_cache/
+
+# Claude Code personal settings
+.claude/settings.local.json
