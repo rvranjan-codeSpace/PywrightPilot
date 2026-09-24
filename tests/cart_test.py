@@ -31,6 +31,27 @@ class TestCart:
         expect(self.cart_page.item_quantity).to_have_text("1")
 
     @pytest.mark.devRun
+    @allure.title("Standard user logs in, adds Sauce Labs Bike Light, and sees it in the cart")
+    def test_standard_user_adds_bike_light_and_sees_it_in_cart(
+        self, base_url: str, page: Page
+    ) -> None:
+        LoginPage(page).login(User.STANDARD_USER, "secret_sauce")
+        expect(page).to_have_url(f"{base_url}inventory.html")
+
+        self.inventory_page.add_bike_light_to_cart()
+        expect(self.inventory_page.shopping_cart_badge).to_have_text("1")
+        expect(self.inventory_page.remove_bike_light_button).to_be_visible()
+
+        self.inventory_page.go_to_cart()
+        expect(page).to_have_url(f"{base_url}cart.html")
+        expect(self.cart_page.title).to_have_text("Your Cart")
+        expect(self.cart_page.cart_items).to_have_count(1)
+        expect(self.cart_page.item_name).to_have_text("Sauce Labs Bike Light")
+        expect(self.cart_page.item_price).to_have_text("$9.99")
+        expect(self.cart_page.item_quantity).to_have_text("1")
+        expect(self.cart_page.remove_bike_light_button).to_be_visible()
+
+    @pytest.mark.devRun
     @pytest.mark.parametrize("browser_context_args", [User.STANDARD_USER], indirect=True)
     @allure.title(
         "Standard user can add, verify, remove, and continue shopping through the full "
