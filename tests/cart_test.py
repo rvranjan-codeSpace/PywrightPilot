@@ -31,6 +31,16 @@ class TestCart:
         expect(self.cart_page.item_quantity).to_have_text("1")
 
     @pytest.mark.devRun
+    @pytest.mark.parametrize("browser_context_args", [User.STANDARD_USER], indirect=True)
+    @allure.title("Adding Sauce Labs Backpack to cart updates shopping cart badge to 1")
+    def test_shopping_cart_badge_shows_one_after_adding_backpack(
+        self, browser_context_args, page: Page
+    ) -> None:
+        self.inventory_page.add_backpack_to_cart()
+
+        expect(self.inventory_page.shopping_cart_badge).to_have_text("1")
+
+    @pytest.mark.devRun
     @allure.title("Standard user logs in, adds Sauce Labs Bike Light, and sees it in the cart")
     def test_standard_user_adds_bike_light_and_sees_it_in_cart(
         self, base_url: str, page: Page
