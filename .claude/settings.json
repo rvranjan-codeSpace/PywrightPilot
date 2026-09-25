@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/rajanvishwaranjan/.claude/**)",
+      "Read(//Users/rajanvishwaranjan/.claude/agents/**)",
+      "Bash(pytest tests/inventory_test.py::TestInventory::test_add_backpack_to_cart_updates_shopping_cart_badge -v)",
+      "Bash(ruff check *)",
+      "Bash(ruff format *)",
+      "Bash(git -C /Users/rajanvishwaranjan/Documents/playwrightPython/Playwright-Python-Example show HEAD:.claude/agents/code-improver.md)",
+      "Bash(python -m pytest tests/cart_test.py -q)",
+      "Bash(git remote *)",
+      "Bash(git fetch *)",
+      "Bash(git restore *)",
+      "Bash(git add *)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/usr/bin/python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/protect_student_db.py\""
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "frontend-design@awesome-claude-plugins": true
+  }
+}
